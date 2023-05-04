@@ -8,6 +8,5 @@ from .fields import MartorFormField
 
 class MartorField(models.TextField):
     def formfield(self, **kwargs):
-        defaults = {"form_class": MartorFormField}
-        defaults.update(kwargs)
+        defaults = {"form_class": MartorFormField} | kwargs
         return super(MartorField, self).formfield(**defaults)

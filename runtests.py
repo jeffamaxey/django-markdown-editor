@@ -56,11 +56,10 @@ try:
     django.setup()
     from django.test.runner import DiscoverRunner
     test_runner = DiscoverRunner(verbosity=1)
-except (ImportError, ModuleNotFoundError):
+except ImportError:
     # Django <= 1.8
     from django.test.simple import DjangoTestSuiteRunner
     test_runner = DjangoTestSuiteRunner(verbosity=1)
 
-failures = test_runner.run_tests(['martor'])
-if failures:
+if failures := test_runner.run_tests(['martor']):
     sys.exit(failures)

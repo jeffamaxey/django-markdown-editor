@@ -15,7 +15,7 @@ def simple_form_view(request):
     form = SimpleForm()
     context = {'form': form, 'title': 'Simple Form'}
     theme = getattr(settings, 'MARTOR_THEME', 'bootstrap')
-    return render(request, '%s/form.html' % theme, context)
+    return render(request, f'{theme}/form.html', context)
 
 
 @login_required
@@ -26,13 +26,13 @@ def post_form_view(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            messages.success(request, '%s successfully saved.' % post.title)
+            messages.success(request, f'{post.title} successfully saved.')
             return redirect('test_markdownify')
     else:
         form = PostForm()
         context = {'form': form, 'title': 'Post Form'}
     theme = getattr(settings, 'MARTOR_THEME', 'bootstrap')
-    return render(request, '%s/form.html' % theme, context)
+    return render(request, f'{theme}/form.html', context)
 
 
 def test_markdownify(request):
@@ -46,4 +46,4 @@ def test_markdownify(request):
             }
         }
     theme = getattr(settings, 'MARTOR_THEME', 'bootstrap')
-    return render(request, '%s/test_markdownify.html' % theme, context)
+    return render(request, f'{theme}/test_markdownify.html', context)

@@ -61,12 +61,8 @@ class UrlizePattern(markdown.inlinepatterns.Pattern):
 
         text = url
 
-        if not url.split("://")[0] in ("http", "https", "ftp"):
-            if "@" in url and "/" not in url:
-                url = "mailto:" + url
-            else:
-                url = "http://" + url
-
+        if url.split("://")[0] not in ("http", "https", "ftp"):
+            url = f"mailto:{url}" if "@" in url and "/" not in url else f"http://{url}"
         el = markdown.util.etree.Element("a")
         el.set("href", url)
         el.text = markdown.util.AtomicString(text)

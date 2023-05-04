@@ -14,7 +14,7 @@ setup(
     zip_safe=False,
     description='Django Markdown Editor',
     url='https://github.com/agusmakmun/django-markdown-editor',
-    download_url='https://github.com/agusmakmun/django-markdown-editor/tarball/v%s' % __VERSION__,
+    download_url=f'https://github.com/agusmakmun/django-markdown-editor/tarball/v{__VERSION__}',
     keywords=['martor', 'django markdown', 'django markdown editor'],
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
