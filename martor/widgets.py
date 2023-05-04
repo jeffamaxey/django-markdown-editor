@@ -22,9 +22,7 @@ from .settings import (
 def get_theme():
     """function to get the selected theme"""
     supported_themes = ["bootstrap", "semantic"]
-    if MARTOR_THEME in supported_themes:
-        return MARTOR_THEME
-    return "bootstrap"
+    return MARTOR_THEME if MARTOR_THEME in supported_themes else "bootstrap"
 
 
 class MartorWidget(forms.Textarea):
@@ -45,14 +43,14 @@ class MartorWidget(forms.Textarea):
             attrs["class"] = "martor"
 
         # Update and overwrite with the attributes passed in
-        attributes_to_pass.update(attrs)
+        attributes_to_pass |= attrs
 
         # Update and overwrite with any attributes that are on the widget
         # itself. This is also the only way we can push something in without
         # being part of the render chain.
         attributes_to_pass.update(self.attrs)
 
-        template = get_template("martor/%s/editor.html" % get_theme())
+        template = get_template(f"martor/{get_theme()}/editor.html")
         emoji_enabled = MARTOR_ENABLE_CONFIGS.get("emoji") == "true"
         mentions_enabled = MARTOR_ENABLE_CONFIGS.get("mention") == "true"
 

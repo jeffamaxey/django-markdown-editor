@@ -16,7 +16,7 @@ def imgur_uploader(image):
     :return json response
     """
     api_url = "https://api.imgur.com/3/upload.json"
-    headers = {"Authorization": "Client-ID " + MARTOR_IMGUR_CLIENT_ID}
+    headers = {"Authorization": f"Client-ID {MARTOR_IMGUR_CLIENT_ID}"}
     response = requests.post(
         api_url,
         headers=headers,

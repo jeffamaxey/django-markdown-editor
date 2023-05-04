@@ -63,20 +63,18 @@ def markdown_search_user(request):
 
     if username is not None and username != "" and " " not in username:
 
-        queries = {"%s__icontains" % User.USERNAME_FIELD: username}
+        queries = {f"{User.USERNAME_FIELD}__icontains": username}
         users = User.objects.filter(**queries).filter(is_active=True)
         if users.exists():
             usernames = list(users.values_list("username", flat=True))
-            response_data.update({"status": 200, "data": usernames})
+            response_data |= {"status": 200, "data": usernames}
             return JsonResponse(response_data)
 
         error_message = _(
             "No users registered as `%(username)s` " "or user is unactived."
         )
         error_message = error_message % {"username": username}
-        response_data.update({"status": 204, "error": error_message})
     else:
         error_message = _("Validation Failed for field `username`")
-        response_data.update({"status": 204, "error": error_message})
-
+    response_data |= {"status": 204, "error": error_message}
     return JsonResponse(response_data, encoder=LazyEncoder)
